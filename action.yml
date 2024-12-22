@@ -29,8 +29,8 @@ runs:
     - shell: bash
       run: |
         set -ex
-        echo "${{ toJSON(inputs.layout) }}" > layout.go
-        echo "${{ toJSON(inputs.source) }}" > source.go
+        echo ${{ toJSON(inputs.layout) }} > layout.go
+        echo ${{ toJSON(inputs.source) }} > source.go
 
         # Output the contents for verification
         cat layout.go
