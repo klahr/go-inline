@@ -29,9 +29,14 @@ runs:
     - shell: bash
       run: |
         set -e
-        LAYOUT="${${{ inputs.layout }}//\"/\\\"}"
-        SOURCE="${${{ inputs.source }}//\"/\\\"}"
-        CODE="${LAYOUT//{ source }/$SOURCE}"
+        LAYOUT="${{ inputs.layout }}"
+        SOURCE="${{ inputs.source }}"
+        ESCAPED_LAYOUT="${LAYOUT//\"/\\\"}"
+        ESCAPED_SOURCE="${SOURCE//\"/\\\"}"
+        echo "Escaped Layout: $ESCAPED_LAYOUT"
+        echo "Escaped Source: $ESCAPED_SOURCE"
+
+        CODE="${ESCAPED_LAYOUT//{ source }/$ESCAPED_SOURCE}"
         echo "$CODE" > main.go
         cat main.go
         goimports -w main.go
