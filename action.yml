@@ -1,0 +1,36 @@
+name: 'Go Script'
+description: 'Run a Go program'
+
+inputs:
+  go-version:
+    description: 'The Go version to use'
+    required: false
+    default: 'stable'
+  source:
+    description: 'The Go source code'
+    required: true
+  layout:
+    description: 'The Go layout'
+    required: false
+    default: |
+      package main
+
+      func main() {
+        { source }
+      }
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-go@v5
+      with:
+        go-version: ${{ inputs.go-version }}
+
+    - shell: bash
+      run: |
+        LAYOUT="${{ inputs.layout }}"
+        SOURCE="${{ inputs.source }}"
+        CODE="${LAYOUT//{ source }/$SOURCE}"
+        echo "$CODE" > main.go
+        goimports -w main.go
+        go run main.go
