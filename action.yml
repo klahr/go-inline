@@ -36,8 +36,9 @@ runs:
         echo "Escaped Layout: $ESCAPED_LAYOUT"
         echo "Escaped Source: $ESCAPED_SOURCE"
 
-        CODE="${ESCAPED_LAYOUT//{ source }/$ESCAPED_SOURCE}"
+        CODE=$(echo "$ESCAPED_LAYOUT" | sed "s/{ source }/$ESCAPED_SOURCE/")
         echo "$CODE" > main.go
         cat main.go
         goimports -w main.go
+        cat main.go
         go run main.go
