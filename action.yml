@@ -39,8 +39,12 @@ runs:
         cat layout.go
         cat source.go
 
-        SOURCE=$(<source.go)
-        sed "s/GO_SOURCE/$(printf '%s' "$SOURCE" | sed 's/[&/\]/\\&/g')/" "layout.go" > "main.go"
+        SOURCE=$(cat source.go)
+        awk -v replacement="$SOURCE" '
+        {
+          gsub(/GO_SOURCE/, replacement)
+          print
+        }' "layout.go" > "main.go"
         cat main.go
         exit 0
 
