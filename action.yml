@@ -26,6 +26,11 @@ runs:
       with:
         go-version: ${{ inputs.go-version }}
 
+
+    - shell: bash
+      run: |
+        go install golang.org/x/tools/cmd/goimports@latest
+
     - shell: bash
       run: |
         set -ex
