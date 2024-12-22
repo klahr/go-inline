@@ -36,7 +36,8 @@ runs:
         cat source.go
 
         SOURCE=$(<source.go)
-        sed -i "s|GO_SOURCE|$SOURCE|" layout.go
+        ESCAPED_SOURCE=$(printf '%s' "$SOURCE" | sed 's/[&/\]/\\&/g')
+        sed -i "s|GO_SOURCE|$ESCAPED_SOURCE|" layout.go
         cat layout.go
         exit 0
 
