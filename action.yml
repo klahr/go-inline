@@ -28,13 +28,12 @@ runs:
 
     - shell: bash
       run: |
-        set -e
-        LAYOUT="${{ inputs.layout }}"
-        SOURCE="${{ inputs.source }}"
-        ESCAPED_LAYOUT="${LAYOUT//\"/\\\"}"
-        ESCAPED_SOURCE="${SOURCE//\"/\\\"}"
-        echo "Escaped Layout: $ESCAPED_LAYOUT"
-        echo "Escaped Source: $ESCAPED_SOURCE"
+        set -ex
+        echo "${{ inputs.layout }}" > layout.go
+        echo "${{ inputs.source }}" > source.go
+        cat layout.go
+        cat source.go
+        exit 0
 
         CODE=$(echo "$ESCAPED_LAYOUT" | sed "s/{ source }/$ESCAPED_SOURCE/")
         echo "$CODE" > main.go
