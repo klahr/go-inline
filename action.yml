@@ -29,15 +29,8 @@ runs:
     - shell: bash
       run: |
         set -ex
-        # Escape quotes in the inputs
-        LAYOUT="${{ inputs.layout }}"
-        SOURCE="${{ inputs.source }}"
-        ESCAPED_LAYOUT=$(echo "$LAYOUT" | sed 's/"/\\"/g')
-        ESCAPED_SOURCE=$(echo "$SOURCE" | sed 's/"/\\"/g')
-
-        # Write the escaped inputs to files
-        echo "$ESCAPED_LAYOUT" > layout.go
-        echo "$ESCAPED_SOURCE" > source.go
+        echo "${{ toJSON(inputs.layout) }}" > layout.go
+        echo "${{ toJSON(inputs.source) }}" > source.go
 
         # Output the contents for verification
         cat layout.go
