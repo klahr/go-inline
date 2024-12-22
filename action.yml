@@ -46,11 +46,7 @@ runs:
           print
         }' "layout.go" > "main.go"
         cat main.go
-        exit 0
 
-        CODE=$(echo "$ESCAPED_LAYOUT" | sed "s/{ source }/$ESCAPED_SOURCE/")
-        echo "$CODE" > main.go
-        cat main.go
         goimports -w main.go
         cat main.go
         go run main.go
