@@ -16,7 +16,7 @@ inputs:
       package main
 
       func main() {
-        { source }
+        GO_SOURCE
       }
 
 runs:
@@ -32,9 +32,12 @@ runs:
         echo ${{ toJSON(inputs.layout) }} > layout.go
         echo ${{ toJSON(inputs.source) }} > source.go
 
-        # Output the contents for verification
         cat layout.go
         cat source.go
+
+        SOURCE=$(<layout.go)
+        sed -i "s|GO_SOURCE|$SOURCE|" layout.go
+        cat layout.go
         exit 0
 
         CODE=$(echo "$ESCAPED_LAYOUT" | sed "s/{ source }/$ESCAPED_SOURCE/")
