@@ -10,7 +10,7 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
-      - uses: klahr/go-script@master
+      - uses: klahr/go-inline@master
         with:
           source: |
             fmt.Println("Hello, World!")
