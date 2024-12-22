@@ -29,11 +29,16 @@ runs:
     - shell: bash
       run: |
         set -ex
-        echo ${{ toJSON(inputs.layout) }} > layout.go
-        echo ${{ toJSON(inputs.source) }} > source.go
+        cat << 'EOF' > source.go
+        ${{ inputs.source }}
+        EOF
+        cat << 'EOF' > layout.Go
+        ${{ inputs.layout }}
+        EOF
 
         cat layout.go
         cat source.go
+        exit 0
 
         SOURCE=$(<source.go)
         ESCAPED_SOURCE=$(printf '%s' "$SOURCE" | sed 's/[&/\]/\\&/g')
