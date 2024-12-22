@@ -26,7 +26,6 @@ runs:
       with:
         go-version: ${{ inputs.go-version }}
 
-
     - shell: bash
       run: |
         go install golang.org/x/tools/cmd/goimports@latest
@@ -41,17 +40,13 @@ runs:
         ${{ inputs.layout }}
         EOF
 
-        cat layout.go
-        cat source.go
-
         SOURCE=$(cat source.go)
         awk -v replacement="$SOURCE" '
         {
           gsub(/GO_SOURCE/, replacement)
           print
         }' "layout.go" > "main.go"
-        cat main.go
 
         goimports -w main.go
-        cat main.go
         go run main.go
+
