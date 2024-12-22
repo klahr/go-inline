@@ -35,7 +35,7 @@ runs:
         cat layout.go
         cat source.go
 
-        SOURCE=$(<layout.go)
+        SOURCE=$(<source.go)
         sed -i "s|GO_SOURCE|$SOURCE|" layout.go
         cat layout.go
         exit 0
