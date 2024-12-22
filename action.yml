@@ -28,9 +28,11 @@ runs:
 
     - shell: bash
       run: |
-        LAYOUT="${{ inputs.layout }}"
-        SOURCE="${{ inputs.source }}"
+        set -e
+        LAYOUT="${${{ inputs.layout }}//\"/\\\"}"
+        SOURCE="${${{ inputs.source }}//\"/\\\"}"
         CODE="${LAYOUT//{ source }/$SOURCE}"
         echo "$CODE" > main.go
+        cat main.go
         goimports -w main.go
         go run main.go
