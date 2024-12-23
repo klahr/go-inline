@@ -9,7 +9,7 @@ inputs:
   source:
     description: 'The Go source code'
     required: true
-  layout:
+  template:
     description: 'The Go layout'
     required: false
     default: |
@@ -36,8 +36,8 @@ runs:
         cat << 'EOF' > source.go
         ${{ inputs.source }}
         EOF
-        cat << 'EOF' > layout.go
-        ${{ inputs.layout }}
+        cat << 'EOF' > template.go
+        ${{ inputs.template }}
         EOF
 
         SOURCE=$(cat source.go)
@@ -45,8 +45,7 @@ runs:
         {
           gsub(/GO_SOURCE/, replacement)
           print
-        }' "layout.go" > "main.go"
+        }' "template.go" > "main.go"
 
         goimports -w main.go
         go run main.go
-
