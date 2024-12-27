@@ -19,4 +19,6 @@ jobs:
             id := uuid.New()
             fmt.Println(id.String())
             fmt.Println(errors.New("Hello, world!"))
+            gha.WriteStepSummary("# Yay")
+            gha.WriteStepSummary("## Good stuff")
 

@@ -51,7 +51,22 @@ runs:
           go get -u $dep
         done
 
-    - name: 'Run Script'
+    - name: 'Add GHA package'
+      shell: bash
+      working-directory: ${{ env.GO_PROJECT }}
+      run: |
+        mkdir -p gha
+        cat << 'EOF' > gha.go
+        package "gha"
+
+        func WriteStepSummary(content string) error {
+          path := os.Getenv("GITHUB_STEP_SUMMARY")
+          err := os.WriteFile(path, []byte(content), 0644)
+          return err
+        }
+        EOF
+
+    - name: 'Generate Script'
       shell: bash
       working-directory: ${{ env.GO_PROJECT }}
       run: |
@@ -73,5 +88,9 @@ runs:
         goimports -w main.go
         go mod tidy
 
+    - name: 'Run Script'
+      shell: bash
+      working-directory: ${{ env.GO_PROJECT }}
+      run: |
         go run main.go
 
