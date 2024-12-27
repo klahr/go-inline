@@ -59,18 +59,38 @@ runs:
         cat << 'EOF' > gha/gha.go
         package gha
 
-        import "os"
+        import (
+            "fmt"
+            "os"
+        )
 
         func WriteStepSummary(content string) error {
-          path := os.Getenv("GITHUB_STEP_SUMMARY")
-          file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
-          if err != nil {
-              return err
-          }
-          defer file.Close()
+            path := os.Getenv("GITHUB_STEP_SUMMARY")
+            file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+            if err != nil {
+                return err
+            }
+            defer file.Close()
 
-          _, err = file.WriteString(content + "\n")
-          return err
+            _, err = file.WriteString(content + "\n")
+            return err
+        }
+
+        func WriteEnv(name, key, value string) error {
+            path := os.Getenv(name)
+            if path == "" {
+                return fmt.Errorf("environment variable %s not found", name)
+            }
+
+            content := fmt.Sprintf("%s=%s\n", key, value)
+            file, err := os.OpenFile(githubEnvPath, os.O_APPEND|os.O_WRONLY, 0644)
+            if err != nil {
+                return error
+            }
+            defer file.Close()
+
+            _, err = file.WriteString(content)
+            return err
         }
         EOF
 

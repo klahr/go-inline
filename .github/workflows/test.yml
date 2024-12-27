@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: klahr/go-inline@master
+        id: run
         with:
           dependencies: "github.com/google/uuid github.com/pkg/errors@v0.9.1"
 
@@ -21,4 +22,12 @@ jobs:
             fmt.Println(errors.New("Hello, world!"))
             gha.WriteStepSummary("# Yay")
             gha.WriteStepSummary("## Good stuff")
+            gha.SetEnv("GITHUB_ENV", "FOO", "bar")
+            gha.SetEnv("GITHUB_OUTPUT", "FOO_OUT", "bar_out")
+
+      - env:
+          FOO: ${{ steps.run.outputs.FOO_OUT }}
+        run: |
+          echo "$FOO"
+          wcho "$FOO_OUT"
 
