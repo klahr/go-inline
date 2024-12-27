@@ -69,7 +69,7 @@ runs:
           }
           defer file.Close()
 
-          _, err = file.WriteString(content)
+          _, err = file.WriteString(content + "\n")
           return err
         }
         EOF
