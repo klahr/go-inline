@@ -65,9 +65,9 @@ steps:
     - uses: klahr/go-inline@v1
       with:
         source: |
-        fmt.Println("Hello, world!")
-        gha.WriteStepSummary("# A Header")
-        gha.WriteStepSummary("## A Subheader")
+          fmt.Println("Hello, world!")
+          gha.WriteStepSummary("# A Header")
+          gha.WriteStepSummary("## A Subheader")
 ```
 
 ### Set key/value
