@@ -98,5 +98,9 @@ runs:
       shell: bash
       working-directory: ${{ env.GO_PROJECT }}
       run: |
+        cat main.go
+        ls
+        ls gha
+        cat gha/gha.go
         go run main.go
 
