@@ -56,12 +56,18 @@ runs:
       working-directory: ${{ env.GO_PROJECT }}
       run: |
         mkdir -p gha
-        cat << 'EOF' > gha.go
+        cat << 'EOF' > gha/gha.go
         package "gha"
 
         func WriteStepSummary(content string) error {
           path := os.Getenv("GITHUB_STEP_SUMMARY")
-          err := os.WriteFile(path, []byte(content), 0644)
+          file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+          if err != nil {
+              return err
+          }
+          defer file.Close()
+
+          _, err = file.WriteString(content)
           return err
         }
         EOF
