@@ -44,6 +44,7 @@ runs:
 
     - name: 'Install Dependencies'
       shell: bash
+      working-directory: ${{ env.GO_PROJECT }}
       run: |
         set -ex
         for dep in ${{ inputs.dependencies }}; do
@@ -74,3 +75,4 @@ runs:
         goimports -w main.go
 
         go run main.go
+
