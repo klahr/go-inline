@@ -32,7 +32,16 @@ runs:
 
     - shell: bash
       run: |
+        GO_PROJECT=$(mktemp -d)
+        echo "GO_PROJECT=$GO_PROJECT" >> $GITHUB_ENV
+        cd "$GO_PROJECT"
+        go mod init m
+
+    - shell: bash
+      working-directory: ${{ env.GO_PROJECT }}
+      run: |
         set -ex
+        pwd
         cat << 'EOF' > source.go
         ${{ inputs.source }}
         EOF
