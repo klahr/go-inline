@@ -71,8 +71,8 @@ runs:
           print
         }' "template.go" > "main.go"
 
-        go mod tidy
         goimports -w main.go
+        go mod tidy
         cat main.go
         cat go.mod
         cat go.sum
