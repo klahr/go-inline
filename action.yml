@@ -2,6 +2,10 @@ name: 'Go Script'
 description: 'Run a Go program'
 
 inputs:
+  dependencies:
+    description: 'The Go dependencies'
+    required: false
+    default: '[]'
   go-version:
     description: 'The Go version to use'
     required: false
@@ -30,14 +34,24 @@ runs:
       run: |
         go install golang.org/x/tools/cmd/goimports@latest
 
-    - shell: bash
+    - name: 'Create Project'
+      shell: bash
       run: |
         GO_PROJECT=$(mktemp -d)
         echo "GO_PROJECT=$GO_PROJECT" >> $GITHUB_ENV
         cd "$GO_PROJECT"
         go mod init m
 
-    - shell: bash
+    - name: 'Install Dependencies'
+      shell: bash
+      run: |
+        set -ex
+        for dep in ${{ inputs.dependencies }}; do
+          go get -u $dep
+        done
+
+    - name: 'Run Script'
+      shell: bash
       working-directory: ${{ env.GO_PROJECT }}
       run: |
         set -ex
@@ -56,5 +70,7 @@ runs:
           print
         }' "template.go" > "main.go"
 
+        go mod tidy
         goimports -w main.go
+
         go run main.go
