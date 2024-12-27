@@ -8,6 +8,8 @@ env:
 
 jobs:
   Test:
+    outputs:
+      FOO_OUT: ${{ steps.run.outputs.FOO_OUT }}
     runs-on: ubuntu-latest
     steps:
       - uses: klahr/go-inline@master
@@ -29,3 +31,10 @@ jobs:
          echo "$FOO"
          echo "${{ steps.run.outputs.FOO_OUT }}"
 
+  Output:
+    runs-on: ubuntu-latest
+    needs: Test
+    steps:
+      - run: |
+          echo "$FOO"
+          echo "${{ needs.Test.outputs.FOO_OUT }}"
