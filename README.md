@@ -57,6 +57,19 @@ steps:
           fmt.Println(errors.New("Hello, world!"))
 ```
 
+### Step summary
+The `GITHUB_STEP_SUMMARY` can be used to provide a summary of the step.
+
+```yaml
+steps:
+    - uses: klahr/go-inline@v1
+      with:
+        source: |
+        fmt.Println("Hello, world!")
+        gha.WriteStepSummary("# A Header")
+        gha.WriteStepSummary("## A Subheader")
+```
+
 ## License
 This project is licensed under the GPL v3.
 
