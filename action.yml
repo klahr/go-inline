@@ -75,6 +75,9 @@ runs:
         goimports -w main.go
         cat main.go
         cat go.mod
+        cat go.sum
+        cat source.go
+        cat template.go
         ls
 
         go run main.go
