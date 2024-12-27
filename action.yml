@@ -57,7 +57,7 @@ runs:
       run: |
         mkdir -p gha
         cat << 'EOF' > gha/gha.go
-        package "gha"
+        package gha
 
         func WriteStepSummary(content string) error {
           path := os.Getenv("GITHUB_STEP_SUMMARY")
@@ -92,7 +92,7 @@ runs:
         }' "template.go" > "main.go"
 
         goimports -w main.go
-        #go mod tidy
+        go mod tidy
 
     - name: 'Run Script'
       shell: bash
