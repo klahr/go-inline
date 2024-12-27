@@ -14,7 +14,7 @@ inputs:
     description: 'The Go source code'
     required: true
   template:
-    description: 'The Go layout'
+    description: 'The Go template'
     required: false
     default: |
       package main
@@ -76,7 +76,7 @@ runs:
             return err
         }
 
-        func SetEnv(name, key, value string) error {
+        func SetKeyValue(name, key, value string) error {
             path := os.Getenv(name)
             if path == "" {
                 return fmt.Errorf("environment variable %s not found", name)

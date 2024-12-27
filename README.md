@@ -70,7 +70,22 @@ steps:
         gha.WriteStepSummary("## A Subheader")
 ```
 
+### Set key/value
+To pass values between steps, you can use the `gha.SetKeyValue` function.
+
+```yaml
+steps:
+  - uses: klahr/go-inline@v1
+    with:
+      source: |
+        gha.SetKeyValue("GITHUB_ENV", "MY_KEY", "my_value")
+
+  - run: |
+      echo "$MY_KEY"
+```
+
 ## License
 This project is licensed under the GPL v3.
 
 ## Contributions
+We enthusiastically encourage and welcome contributions.

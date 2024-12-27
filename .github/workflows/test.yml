@@ -8,8 +8,6 @@ env:
 
 jobs:
   Test:
-    outputs:
-      MY_OUTPUT: ${{ steps.run.outputs.MY_OUTPUT }}
     runs-on: ubuntu-latest
     steps:
       - uses: klahr/go-inline@master
@@ -24,16 +22,8 @@ jobs:
             fmt.Println(errors.New("Hello, world!"))
             gha.WriteStepSummary("# Yay")
             gha.WriteStepSummary("## Good stuff")
-            gha.SetEnv("GITHUB_ENV", "MY_ENV", "myenv")
-            gha.SetEnv("GITHUB_OUTPUT", "MY_OUTPUT", "myoutput")
+            gha.SetKeyValue("GITHUB_ENV", "MY_ENV", "myenv")
 
       - run: |
-         echo "$FOO"
-
-  Output:
-    runs-on: ubuntu-latest
-    needs: Test
-    steps:
-      - run: |
-          echo "${{ needs.Test.outputs.MY_OUTPUT }}"
+         echo "$MY_ENV"
 
