@@ -76,7 +76,7 @@ runs:
             return err
         }
 
-        func WriteEnv(name, key, value string) error {
+        func SetEnv(name, key, value string) error {
             path := os.Getenv(name)
             if path == "" {
                 return fmt.Errorf("environment variable %s not found", name)
