@@ -12,9 +12,13 @@ jobs:
     steps:
       - uses: klahr/go-inline@master
         with:
-          dependencies: 'github.com/google/uuid'
+          dependencies: |
+            github.com/google/uuid
+            github.com/pkg/errors@v0.9.1
+
           source: |
             fmt.Println("Hello, World!")
             id := uuid.New()
             fmt.Println(id.String())
+            fmt.Println(errors.New("Hello, world!"))
 
