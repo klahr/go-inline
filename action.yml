@@ -3,9 +3,9 @@ description: 'Run a Go program'
 
 inputs:
   dependencies:
-    description: 'The Go dependencies'
+    description: 'The Go dependencies, space separated'
     required: false
-    default: '[]'
+    default: ''
   go-version:
     description: 'The Go version to use'
     required: false
