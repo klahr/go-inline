@@ -25,9 +25,7 @@ jobs:
             gha.SetEnv("GITHUB_ENV", "FOO", "bar")
             gha.SetEnv("GITHUB_OUTPUT", "FOO_OUT", "bar_out")
 
-      - env:
-          FOO_OUT: ${{ steps.run.outputs.FOO_OUT }}
-        run: |
-          echo "$FOO"
-          echo "$FOO_OUT"
+      - run: |
+         echo "$FOO"
+         echo "${{ steps.run.outputs.FOO_OUT }}"
 
