@@ -92,7 +92,7 @@ runs:
         }' "template.go" > "main.go"
 
         goimports -w main.go
-        go mod tidy
+        #go mod tidy
 
     - name: 'Run Script'
       shell: bash
