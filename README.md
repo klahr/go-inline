@@ -43,6 +43,20 @@ steps:
         fmt.Println("Hello, world!")
 ```
 
+### Dependencies
+If you need to import external packages, you can use the `dependencies` field.
+
+```yaml
+steps:
+    - uses: klahr/go-inline@v1
+      with:
+        dependencies: "github.com/google/uuid github.com/pkg/errors@v0.9.1"
+        source: |
+          id := uuid.New()
+          fmt.Println(id.String())
+          fmt.Println(errors.New("Hello, world!"))
+```
+
 ## License
 This project is licensed under the GPL v3.
 

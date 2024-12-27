@@ -56,7 +56,6 @@ runs:
       working-directory: ${{ env.GO_PROJECT }}
       run: |
         set -ex
-        pwd
         cat << 'EOF' > source.go
         ${{ inputs.source }}
         EOF
@@ -73,12 +72,6 @@ runs:
 
         goimports -w main.go
         go mod tidy
-        cat main.go
-        cat go.mod
-        cat go.sum
-        cat source.go
-        cat template.go
-        ls
 
         go run main.go
 
