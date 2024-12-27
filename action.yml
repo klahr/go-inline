@@ -59,6 +59,8 @@ runs:
         cat << 'EOF' > gha/gha.go
         package gha
 
+        import "os"
+
         func WriteStepSummary(content string) error {
           path := os.Getenv("GITHUB_STEP_SUMMARY")
           file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
