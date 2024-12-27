@@ -73,6 +73,9 @@ runs:
 
         go mod tidy
         goimports -w main.go
+        cat main.go
+        cat go.mod
+        ls
 
         go run main.go
 
