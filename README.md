@@ -1,4 +1,4 @@
-# go-script
+# go-inline
 This GitHub action allows you to use Go as a scripting language.
 
 ## Usage
