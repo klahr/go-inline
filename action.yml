@@ -62,6 +62,7 @@ runs:
         import (
             "fmt"
             "os"
+            "os/exec"
         )
 
         func WriteStepSummary(content string) error {
@@ -91,6 +92,13 @@ runs:
 
             _, err = file.WriteString(content)
             return err
+        }
+
+        func Exec(command string, args []string) error {
+            cmd := exec.Command, command, args...) 
+            cmd.Stdout = os.Stdout
+            cmd.Stderr = os.Stderr
+            return cmd.Run()
         }
         EOF
 
