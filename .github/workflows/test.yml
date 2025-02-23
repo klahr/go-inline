@@ -27,7 +27,7 @@ jobs:
             gha.WriteStepSummary("## Good stuff")
             gha.SetKeyValue("GITHUB_ENV", "MY_ENV", "myenv")
             if output, err := gha.Exec("lsasdf", []string{"-a", "-l", "-h"}); err != nil {
-              fmt.Println(err)
+              panic(err)
             } else {
               fmt.Println(output)
             }
