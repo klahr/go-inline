@@ -26,7 +26,7 @@ jobs:
             if output, err := gha.Exec("ls", []string{"-a", "-l", "-h"}); err != nil {
               fmt.Println(err)
             } else {
-              fmt.Println(output)
+              //fmt.Println(output)
             }
       - run: |
          echo "$MY_ENV"
