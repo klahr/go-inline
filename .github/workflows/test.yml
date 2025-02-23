@@ -2,6 +2,9 @@ name: 'Test'
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
 
 env:
   ACTIONS_STEP_DEBUG: true
@@ -23,7 +26,7 @@ jobs:
             gha.WriteStepSummary("# Yay")
             gha.WriteStepSummary("## Good stuff")
             gha.SetKeyValue("GITHUB_ENV", "MY_ENV", "myenv")
-            if output, err := gha.Exec("ls", []string{"-a", "-l", "-h"}); err != nil {
+            if _, err := gha.Exec("ls", []string{"-a", "-l", "-h"}); err != nil {
               fmt.Println(err)
             } else {
               //fmt.Println(output)
