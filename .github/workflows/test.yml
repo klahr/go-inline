@@ -23,7 +23,11 @@ jobs:
             gha.WriteStepSummary("# Yay")
             gha.WriteStepSummary("## Good stuff")
             gha.SetKeyValue("GITHUB_ENV", "MY_ENV", "myenv")
-            gha.Exec("ls", []string{"-a", "-l", "-h"})
+            if output err := gha.Exec("ls", []string{"-a", "-l", "-h"}); err != nil {
+              fmt.Println(err)
+            } else {
+              fmt.Println(output)
+            }
       - run: |
          echo "$MY_ENV"
 

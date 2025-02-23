@@ -94,11 +94,15 @@ runs:
             return err
         }
 
-        func Exec(command string, args []string) error {
+        func Exec(command string, args []string) (string, error) {
+            var stdout, stderr bytes.Buffer
+            cmd.Stdout = &stdout
+            cmd.Stderr = &stderr
             cmd := exec.Command(command, args...)
-            cmd.Stdout = os.Stdout
-            cmd.Stderr = os.Stderr
-            return cmd.Run()
+            if err := cmd.Run(); err != nil {
+                return stderr.String(), err
+            }
+            return stdout.String(), nil
         }
         EOF
 
