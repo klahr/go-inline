@@ -94,7 +94,12 @@ steps:
       source: |
         cmd := "ls"
         args := []string{"-a", "-l"}
-        gha.Exec(cmd, args)
+        if output, err := gha.Exec(cmd, args); err != nil {
+          panic(err)
+        } else {
+          fmt.Println(output)
+        }
+
 ```
 
 ## License
