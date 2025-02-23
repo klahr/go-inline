@@ -23,6 +23,7 @@ jobs:
             gha.WriteStepSummary("# Yay")
             gha.WriteStepSummary("## Good stuff")
             gha.SetKeyValue("GITHUB_ENV", "MY_ENV", "myenv")
+            gha.Exec("ls", "-a", "-l", -h")
 
       - run: |
          echo "$MY_ENV"
