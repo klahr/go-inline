@@ -48,13 +48,13 @@ If you need to import external packages, you can use the `dependencies` field.
 
 ```yaml
 steps:
-    - uses: klahr/go-inline@v1
-      with:
-        dependencies: "github.com/google/uuid github.com/pkg/errors@v0.9.1"
-        source: |
-          id := uuid.New()
-          fmt.Println(id.String())
-          fmt.Println(errors.New("Hello, world!"))
+  - uses: klahr/go-inline@v1
+    with:
+      dependencies: "github.com/google/uuid github.com/pkg/errors@v0.9.1"
+      source: |
+        id := uuid.New()
+        fmt.Println(id.String())
+        fmt.Println(errors.New("Hello, world!"))
 ```
 
 ### Step summary
@@ -62,12 +62,12 @@ The `GITHUB_STEP_SUMMARY` can be used to provide a summary of the step.
 
 ```yaml
 steps:
-    - uses: klahr/go-inline@v1
-      with:
-        source: |
-          fmt.Println("Hello, world!")
-          gha.WriteStepSummary("# A Header")
-          gha.WriteStepSummary("## A Subheader")
+  - uses: klahr/go-inline@v1
+    with:
+      source: |
+        fmt.Println("Hello, world!")
+        gha.WriteStepSummary("# A Header")
+        gha.WriteStepSummary("## A Subheader")
 ```
 
 ### Set key/value
@@ -82,6 +82,19 @@ steps:
 
   - run: |
       echo "$MY_KEY"
+```
+
+### Execute shell commands
+Executes shell commands using the `gha.Exec` function.
+
+```yaml
+steps:
+  - uses: klahr/go-inline@v1
+    with:
+      source: |
+        cmd := "ls"
+        args := []string{"-a", "-l"}
+        gha.Exec(cmd, args)
 ```
 
 ## License
